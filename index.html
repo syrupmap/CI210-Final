@@ -77,6 +77,16 @@
                 </div>
             </div>
 
+            <div class="difficulty-section">
+                <h3>Difficulty Preset</h3>
+                <select id="difficulty-select" aria-label="Select difficulty">
+                    <option value="relaxed">🌱 Relaxed Learner</option>
+                    <option value="standard">🚀 Explorer</option>
+                    <option value="expert">🩺 Surgeon Mode</option>
+                </select>
+                <p class="difficulty-description" id="difficulty-description">Tune the challenge to match your focus.</p>
+            </div>
+
             <div class="progress-section">
                 <h3>System Progress</h3>
                 <div class="system-item">
@@ -93,6 +103,13 @@
                     </div>
                     <span class="progress-text">Locked</span>
                 </div>
+            </div>
+
+            <div class="achievements-panel">
+                <h3>Achievements</h3>
+                <ul id="achievement-list">
+                    <li class="achievement-item empty">Complete missions to unlock badges.</li>
+                </ul>
             </div>
         </aside>
 
@@ -113,6 +130,9 @@
                         </div>
                         <div class="hint" id="hint">
                             💡 Hint: It's the longest bone in the human body
+                        </div>
+                        <div class="motivation-banner" id="motivation-banner">
+                            Stay curious — every click wires a new memory.
                         </div>
                         <div class="mission-meta">
                             <div class="chip" id="active-system-chip">Bones Focus</div>
@@ -152,10 +172,6 @@
                                 <linearGradient id="boneHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
                                     <stop offset="0%" stop-color="rgba(255,255,255,0.7)"/>
                                     <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                                </linearGradient>
-                                <linearGradient id="organGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#ff9a9e"/>
-                                    <stop offset="100%" stop-color="#fad0c4"/>
                                 </linearGradient>
                                 <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                                     <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
@@ -405,58 +421,14 @@
                             
                             <!-- ORGANS VIEW (hidden by default) -->
                             <g id="organs-view" style="display: none;">
-                                <!-- Body outline for organs -->
-                                <ellipse cx="200" cy="60" rx="40" ry="45" fill="#ffd6a5" stroke="#333" stroke-width="2" opacity="0.3"/>
-                                <ellipse cx="200" cy="220" rx="90" ry="140" fill="#ffd6a5" stroke="#333" stroke-width="2" opacity="0.3"/>
-                                <ellipse cx="200" cy="450" rx="80" ry="100" fill="#ffd6a5" stroke="#333" stroke-width="2" opacity="0.3"/>
-                                
-                                <!-- Brain -->
-                                <g id="brain-visual">
-                                    <ellipse cx="200" cy="55" rx="35" ry="30" fill="#ff9999" stroke="#cc0000" stroke-width="2"/>
-                                    <path d="M 165 55 Q 175 40 185 55" fill="none" stroke="#cc0000" stroke-width="2"/>
-                                    <path d="M 185 55 Q 195 40 205 55" fill="none" stroke="#cc0000" stroke-width="2"/>
-                                    <path d="M 205 55 Q 215 40 225 55" fill="none" stroke="#cc0000" stroke-width="2"/>
-                                </g>
-                                
-                                <!-- Heart -->
-                                <g id="heart-visual">
-                                    <path d="M 200 200 L 180 170 Q 170 155 185 155 Q 200 155 200 170 Q 200 155 215 155 Q 230 155 220 170 Z" fill="#ff6b6b" stroke="#cc0000" stroke-width="2"/>
-                                </g>
-                                
-                                <!-- Lungs -->
-                                <g id="lungs-visual">
-                                    <ellipse cx="160" cy="200" rx="30" ry="60" fill="#ffb3ba" stroke="#cc6666" stroke-width="2"/>
-                                    <ellipse cx="240" cy="200" rx="30" ry="60" fill="#ffb3ba" stroke="#cc6666" stroke-width="2"/>
-                                </g>
-                                
-                                <!-- Liver -->
-                                <g id="liver-visual">
-                                    <ellipse cx="220" cy="260" rx="50" ry="35" fill="#8b4513" stroke="#654321" stroke-width="2"/>
-                                </g>
-                                
-                                <!-- Stomach -->
-                                <g id="stomach-visual">
-                                    <ellipse cx="180" cy="280" rx="35" ry="40" fill="#ffcc99" stroke="#cc9966" stroke-width="2"/>
-                                </g>
-
-                                <!-- Kidneys -->
-                                <g id="kidneys-visual">
-                                    <ellipse cx="160" cy="280" rx="25" ry="35" fill="#c084fc" stroke="#7e22ce" stroke-width="2"/>
-                                    <ellipse cx="240" cy="280" rx="25" ry="35" fill="#c084fc" stroke="#7e22ce" stroke-width="2"/>
-                                </g>
-
-                                <!-- Pancreas -->
-                                <g id="pancreas-visual">
-                                    <path d="M 170 300 Q 200 280 240 300 Q 210 320 170 305" fill="#fcd34d" stroke="#d97706" stroke-width="2"/>
-                                </g>
-                                
-                                <!-- Intestines -->
-                                <g id="intestines-visual">
-                                    <path d="M 160 320 Q 180 340 160 360 Q 140 380 160 400 Q 180 420 200 400 Q 220 380 240 400 Q 260 420 240 360 Q 220 340 240 320" 
-                                          fill="#ffddaa" stroke="#cc9966" stroke-width="3"/>
-                                </g>
+                                <image href="images/organ.png"
+                                       x="40"
+                                       y="20"
+                                       width="320"
+                                       height="720"
+                                       preserveAspectRatio="xMidYMid meet"
+                                       class="organs-photo"/>
                             </g>
-                            
                             <!-- BONES - Clickable regions -->
                             <g id="bones-regions">
                                 <!-- Skull/Brain -->
@@ -498,22 +470,28 @@
                             <!-- ORGANS - Clickable regions -->
                             <g id="organs-regions" style="display: none;">
                                 <!-- Brain -->
-                                <circle cx="200" cy="55" r="40" class="clickable-region organs-region" data-name="brain" opacity="0"/>
+                                <circle cx="200" cy="60" r="40" class="clickable-region organs-region" data-name="brain" opacity="0"/>
                                 <!-- Heart -->
-                                <ellipse cx="200" cy="180" rx="40" ry="45" class="clickable-region organs-region" data-name="heart" opacity="0"/>
+                                <ellipse cx="200" cy="215" rx="35" ry="40" class="clickable-region organs-region" data-name="heart" opacity="0"/>
                                 <!-- Lungs -->
-                                <ellipse cx="200" cy="200" rx="90" ry="65" class="clickable-region organs-region" data-name="lungs" opacity="0"/>
+                                <ellipse cx="200" cy="210" rx="80" ry="60" class="clickable-region organs-region" data-name="lungs" opacity="0"/>
                                 <!-- Liver -->
-                                <ellipse cx="220" cy="260" rx="55" ry="40" class="clickable-region organs-region" data-name="liver" opacity="0"/>
+                                <ellipse cx="220" cy="275" rx="55" ry="40" class="clickable-region organs-region" data-name="liver" opacity="0"/>
+                                <!-- Gallbladder -->
+                                <circle cx="215" cy="295" r="12" class="clickable-region organs-region" data-name="gallbladder" opacity="0"/>
                                 <!-- Stomach -->
-                                <ellipse cx="180" cy="280" rx="40" ry="45" class="clickable-region organs-region" data-name="stomach" opacity="0"/>
+                                <ellipse cx="190" cy="295" rx="40" ry="35" class="clickable-region organs-region" data-name="stomach" opacity="0"/>
+                                <!-- Spleen -->
+                                <circle cx="245" cy="280" r="15" class="clickable-region organs-region" data-name="spleen" opacity="0"/>
                                 <!-- Intestines -->
-                                <ellipse cx="200" cy="360" rx="60" ry="60" class="clickable-region organs-region" data-name="intestines" opacity="0"/>
+                                <ellipse cx="200" cy="370" rx="60" ry="50" class="clickable-region organs-region" data-name="intestines" opacity="0"/>
                                 <!-- Kidneys -->
-                                <ellipse cx="160" cy="280" rx="25" ry="35" class="clickable-region organs-region" data-name="kidneys" opacity="0"/>
-                                <ellipse cx="240" cy="280" rx="25" ry="35" class="clickable-region organs-region" data-name="kidneys" opacity="0"/>
+                                <ellipse cx="165" cy="320" rx="20" ry="30" class="clickable-region organs-region" data-name="kidneys" opacity="0"/>
+                                <ellipse cx="235" cy="320" rx="20" ry="30" class="clickable-region organs-region" data-name="kidneys" opacity="0"/>
                                 <!-- Pancreas -->
-                                <ellipse cx="210" cy="300" rx="35" ry="20" class="clickable-region organs-region" data-name="pancreas" opacity="0"/>
+                                <ellipse cx="200" cy="310" rx="40" ry="15" class="clickable-region organs-region" data-name="pancreas" opacity="0"/>
+                                <!-- Bladder -->
+                                <ellipse cx="200" cy="400" rx="25" ry="20" class="clickable-region organs-region" data-name="bladder" opacity="0"/>
                             </g>
                             
                             <!-- User click marker -->
@@ -599,26 +577,42 @@
                 <!-- Flashcard Mode -->
                 <div class="flashcard-content hidden" id="flashcard-content">
                     <div class="flashcard-container">
-                        <h2>🎴 Flashcards</h2>
+                        <div class="flashcard-meta">
+                            <h2>🎴 Flashcards</h2>
+                            <p id="flashcard-position">0 / 0</p>
+                        </div>
                         <div class="flashcard" id="flashcard">
-                            <div class="flashcard-front">
-                                <h3>Femur</h3>
-                                <p>Click to reveal answer</p>
+                            <div class="flashcard-inner">
+                                <div class="flashcard-face flashcard-front">
+                                    <span class="flashcard-pill" id="flashcard-system">Skeletal System</span>
+                                    <h3 id="flashcard-term">Femur</h3>
+                                    <p class="flashcard-prompt">Tap to reveal what it does</p>
+                                </div>
+                                <div class="flashcard-face flashcard-back">
+                                    <h4>Hint</h4>
+                                    <p id="flashcard-hint">Hint text</p>
+                                    <h4>Fun Fact</h4>
+                                    <p id="flashcard-fact">Fact text</p>
+                                </div>
                             </div>
                         </div>
                         <div class="flashcard-controls">
-                            <button class="card-btn">Previous</button>
-                            <button class="card-btn">Flip Card</button>
-                            <button class="card-btn">Next</button>
+                            <button class="card-btn secondary" id="flashcard-shuffle">Shuffle Deck</button>
+                            <div class="flashcard-control-group">
+                                <button class="card-btn" id="flashcard-prev">Previous</button>
+                                <button class="card-btn" id="flashcard-flip">Flip Card</button>
+                                <button class="card-btn" id="flashcard-next">Next</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Feedback Area -->
             <div class="feedback" id="feedback"></div>
+            <div id="confetti-container"></div>
         </main>
     </div>
+
+    <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite"></div>
 
     <script src="guesser.js"></script>
 </body>
