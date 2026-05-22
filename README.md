@@ -1,3 +1,3 @@
 # AnatomyGuesser
 Final Project for CI 210
-Site is live on https://mapleapplefan.github.io/anatomy-guesser-website/
+Site is live on https://syrupmap.github.io/CI210-Final/
